@@ -3,13 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Friendship Junction</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6c5ce7, #a855f7, #ec4899);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .tagline {
+      font-size: 19px;
+      opacity: 0.9;
+      margin-bottom: 35px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      padding: 35px 25px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .start-btn {
+      width: 100%;
+      border: none;
+      padding: 17px;
+      border-radius: 50px;
+      background: white;
+      color: #7c3aed;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .start-btn:active {
+      transform: scale(0.96);
+    }
+
+    .info {
+      margin-top: 25px;
+      font-size: 14px;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Friendship Junction</h1>
-  <p>Meet new people. Make new friends.</p>
 
-  <button>Start Chat</button>
+  <div class="container">
+
+    <div class="logo">🤝</div>
+
+    <h1>Friendship Junction</h1>
+
+    <p class="tagline">
+      Meet someone new. Make a new friend.
+    </p>
+
+    <div class="card">
+
+      <button class="start-btn" onclick="startChat()">
+        🚀 Start Chat
+      </button>
+
+      <p class="info">
+        Connect with new people and have friendly conversations.
+        Please be respectful and stay safe.
+      </p>
+
+    </div>
+
+    <p class="footer">
+      Friendship Junction • Meet • Chat • Connect
+    </p>
+
+  </div>
+
+  <script>
+    function startChat() {
+      alert("Chat system coming next! 🚀");
+    }
+  </script>
+
 </body>
 </html>
