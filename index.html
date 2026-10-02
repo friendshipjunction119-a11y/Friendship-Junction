@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Friendship Junction</title>
 
   <style>
@@ -29,46 +28,105 @@
 
     .logo {
       font-size: 42px;
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
     h1 {
       font-size: 34px;
-      margin: 10px 0;
+      margin: 8px 0;
     }
 
     .subtitle {
-      opacity: 0.85;
-      margin-bottom: 25px;
+      opacity: .85;
+      margin-bottom: 20px;
     }
 
     .card {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,.15);
       backdrop-filter: blur(15px);
       border-radius: 24px;
       padding: 25px;
+      text-align: left;
     }
 
-    #status {
-      margin-bottom: 18px;
+    label {
+      display: block;
+      margin: 12px 0 6px;
       font-weight: bold;
     }
 
-    #messages {
-      height: 350px;
-      overflow-y: auto;
-      background: rgba(0,0,0,0.15);
-      border-radius: 15px;
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .checkbox {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 18px 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .checkbox input {
+      width: auto;
+      margin-top: 3px;
+    }
+
+    button {
+      width: 100%;
       padding: 15px;
-      text-align: left;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #7c3aed;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+    }
+
+    #chatArea {
+      display: none;
+    }
+
+    #status {
+      text-align: center;
       margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .profile {
+      background: rgba(255,255,255,.18);
+      padding: 12px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    #messages {
+      height: 330px;
+      overflow-y: auto;
+      background: rgba(0,0,0,.15);
+      border-radius: 15px;
+      padding: 12px;
+      margin-bottom: 12px;
     }
 
     .message {
-      padding: 10px 13px;
-      margin: 7px 0;
-      border-radius: 15px;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,.18);
+      padding: 10px;
+      border-radius: 14px;
+      margin: 6px 0;
       word-wrap: break-word;
     }
 
@@ -83,38 +141,24 @@
       gap: 8px;
     }
 
-    input {
+    .input-row input {
       flex: 1;
-      padding: 14px;
-      border: none;
-      border-radius: 25px;
-      outline: none;
-      font-size: 16px;
     }
 
-    button {
-      border: none;
-      border-radius: 25px;
-      padding: 14px 20px;
-      background: white;
-      color: #7c3aed;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #chatArea {
-      display: none;
+    .input-row button {
+      width: auto;
+      padding: 12px 18px;
     }
 
     #nextButton {
-      margin-top: 15px;
-      width: 100%;
+      margin-top: 12px;
     }
 
-    #startButton {
-      width: 100%;
-      font-size: 18px;
-      padding: 17px;
+    .error {
+      color: #ffe1e1;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -131,46 +175,102 @@
     Meet someone new. Make a new friend.
   </p>
 
-  <div class="card">
+  <!-- PROFILE -->
 
-    <div id="status">
-      Ready to meet someone?
-    </div>
+  <div class="card" id="profileArea">
+
+    <label>Your name</label>
+
+    <input
+      id="nameInput"
+      type="text"
+      maxlength="30"
+      placeholder="Enter your name"
+    >
+
+    <label>Gender</label>
+
+    <select id="genderInput">
+      <option value="">Select gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label>Age</label>
+
+    <input
+      id="ageInput"
+      type="number"
+      min="18"
+      max="100"
+      placeholder="18 or older"
+    >
+
+    <label class="checkbox">
+
+      <input
+        id="adultCheck"
+        type="checkbox"
+      >
+
+      <span>
+        I confirm that I am 18 years old or older.
+      </span>
+
+    </label>
 
     <button id="startButton">
       🚀 Start Chat
     </button>
 
-    <div id="chatArea">
+    <p id="error" class="error"></p>
 
-      <div id="messages"></div>
+  </div>
 
-      <div class="input-row">
-        <input
-          id="messageInput"
-          type="text"
-          placeholder="Type a message..."
-        >
 
-        <button id="sendButton">
-          Send
-        </button>
-      </div>
+  <!-- CHAT -->
 
-      <button id="nextButton">
-        ⏭️ Next Person
+  <div class="card" id="chatArea">
+
+    <div id="status">
+      Connecting...
+    </div>
+
+    <div class="profile" id="partnerProfile">
+      👤 Waiting for a match...
+    </div>
+
+    <div id="messages"></div>
+
+    <div class="input-row">
+
+      <input
+        id="messageInput"
+        type="text"
+        maxlength="500"
+        placeholder="Type a message..."
+      >
+
+      <button id="sendButton">
+        Send
       </button>
 
     </div>
+
+    <button id="nextButton">
+      ⏭️ Next Person
+    </button>
 
   </div>
 
 </div>
 
+
 <script type="module">
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getDatabase,
@@ -181,8 +281,8 @@ import {
   onValue,
   remove,
   onDisconnect
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
 const firebaseConfig = {
@@ -214,79 +314,190 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 
-const startButton =
-  document.getElementById("startButton");
-
-const nextButton =
-  document.getElementById("nextButton");
-
-const sendButton =
-  document.getElementById("sendButton");
-
-const messageInput =
-  document.getElementById("messageInput");
-
-const status =
-  document.getElementById("status");
-
-const chatArea =
-  document.getElementById("chatArea");
-
-const messages =
-  document.getElementById("messages");
-
-
-let userId =
+const userId =
   "user_" +
   Math.random().toString(36).substring(2, 10);
 
 
 let roomId = null;
+let myProfile = null;
 
-let messageListener = null;
+
+const nameInput =
+  document.getElementById("nameInput");
+
+const genderInput =
+  document.getElementById("genderInput");
+
+const ageInput =
+  document.getElementById("ageInput");
+
+const adultCheck =
+  document.getElementById("adultCheck");
+
+const startButton =
+  document.getElementById("startButton");
+
+const profileArea =
+  document.getElementById("profileArea");
+
+const chatArea =
+  document.getElementById("chatArea");
+
+const status =
+  document.getElementById("status");
+
+const partnerProfile =
+  document.getElementById("partnerProfile");
+
+const messages =
+  document.getElementById("messages");
+
+const messageInput =
+  document.getElementById("messageInput");
+
+const sendButton =
+  document.getElementById("sendButton");
+
+const nextButton =
+  document.getElementById("nextButton");
+
+const error =
+  document.getElementById("error");
 
 
-/* START */
+startButton.addEventListener(
+  "click",
+  startMatching
+);
 
-startButton.addEventListener("click", startMatching);
+sendButton.addEventListener(
+  "click",
+  sendMessage
+);
 
-nextButton.addEventListener("click", nextPerson);
+nextButton.addEventListener(
+  "click",
+  nextPerson
+);
 
-sendButton.addEventListener("click", sendMessage);
+messageInput.addEventListener(
+  "keydown",
+  event => {
 
-messageInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
 
-  if (event.key === "Enter") {
-    sendMessage();
+  }
+);
+
+
+/* PROFILE VALIDATION */
+
+function getProfile() {
+
+  const name =
+    nameInput.value.trim();
+
+  const gender =
+    genderInput.value;
+
+  const age =
+    Number(ageInput.value);
+
+  if (!name) {
+
+    error.textContent =
+      "Please enter your name.";
+
+    return null;
   }
 
-});
+  if (!gender) {
 
+    error.textContent =
+      "Please select your gender.";
+
+    return null;
+  }
+
+  if (!age || age < 18 || age > 100) {
+
+    error.textContent =
+      "You must be 18 or older.";
+
+    return null;
+  }
+
+  if (!adultCheck.checked) {
+
+    error.textContent =
+      "You must confirm that you are 18+.";
+
+    return null;
+  }
+
+  error.textContent = "";
+
+  return {
+    name,
+    gender,
+    age
+  };
+
+}
+
+
+/* START MATCHING */
 
 async function startMatching() {
 
-  startButton.style.display = "none";
+  myProfile = getProfile();
+
+  if (!myProfile) {
+    return;
+  }
+
+  startButton.disabled = true;
 
   status.textContent =
     "🔎 Looking for someone...";
 
-  const waitingRef =
-    ref(db, "waiting/" + userId);
+  profileArea.style.display =
+    "none";
 
-  await set(waitingRef, {
+  chatArea.style.display =
+    "block";
 
-    joinedAt: Date.now()
 
-  });
+  await set(
+    ref(db, "profiles/" + userId),
+    myProfile
+  );
 
-  onDisconnect(waitingRef).remove();
+
+  await set(
+    ref(db, "waiting/" + userId),
+    {
+      joinedAt: Date.now()
+    }
+  );
+
+
+  onDisconnect(
+    ref(db, "waiting/" + userId)
+  ).remove();
+
 
   const waitingSnapshot =
     await get(ref(db, "waiting"));
 
+
   let foundUser = null;
 
-  waitingSnapshot.forEach((child) => {
+
+  waitingSnapshot.forEach(child => {
 
     if (
       child.key !== userId &&
@@ -307,6 +518,7 @@ async function startMatching() {
       .sort()
       .join("_");
 
+
     await set(
       ref(db, "rooms/" + roomId),
       {
@@ -316,15 +528,22 @@ async function startMatching() {
       }
     );
 
+
     await remove(
       ref(db, "waiting/" + foundUser)
     );
 
-    await remove(waitingRef);
 
-    enterChat();
+    await remove(
+      ref(db, "waiting/" + userId)
+    );
 
-  } else {
+
+    showPartner(foundUser);
+
+  }
+
+  else {
 
     listenForMatch();
 
@@ -333,46 +552,52 @@ async function startMatching() {
 }
 
 
-/* WAIT FOR MATCH */
+/* FIND MATCH */
 
 function listenForMatch() {
 
-  const waitingRef =
-    ref(db, "waiting");
+  onValue(
+    ref(db, "waiting"),
+    async snapshot => {
 
-  onValue(waitingRef, (snapshot) => {
+      let otherUser = null;
 
-    let otherUser = null;
 
-    snapshot.forEach((child) => {
+      snapshot.forEach(child => {
 
-      if (
-        child.key !== userId &&
-        !otherUser
-      ) {
+        if (
+          child.key !== userId &&
+          !otherUser
+        ) {
 
-        otherUser = child.key;
+          otherUser = child.key;
 
+        }
+
+      });
+
+
+      if (!otherUser) {
+        return;
       }
 
-    });
-
-    if (otherUser) {
 
       roomId =
         [userId, otherUser]
         .sort()
         .join("_");
 
-      remove(
+
+      await remove(
         ref(db, "waiting/" + userId)
       );
 
-      remove(
+      await remove(
         ref(db, "waiting/" + otherUser)
       );
 
-      set(
+
+      await set(
         ref(db, "rooms/" + roomId),
         {
           user1: userId,
@@ -381,27 +606,42 @@ function listenForMatch() {
         }
       );
 
-      enterChat();
+
+      showPartner(otherUser);
 
     }
-
-  });
+  );
 
 }
 
 
-/* ENTER CHAT */
+/* SHOW PARTNER */
 
-function enterChat() {
+async function showPartner(otherUser) {
+
+  const snapshot =
+    await get(
+      ref(db, "profiles/" + otherUser)
+    );
+
+
+  if (snapshot.exists()) {
+
+    const profile =
+      snapshot.val();
+
+
+    partnerProfile.innerHTML =
+      `<strong>👋 ${escapeHtml(profile.name)}</strong>
+       <br>
+       ${escapeHtml(profile.gender)} • ${profile.age} years old`;
+
+  }
+
 
   status.textContent =
     "🎉 You're connected!";
 
-  chatArea.style.display =
-    "block";
-
-  startButton.style.display =
-    "none";
 
   listenForMessages();
 
@@ -412,24 +652,26 @@ function enterChat() {
 
 function listenForMessages() {
 
-  const messagesRef =
-    ref(db, "messages/" + roomId);
-
-  messageListener =
-    onValue(messagesRef, (snapshot) => {
+  onValue(
+    ref(db, "messages/" + roomId),
+    snapshot => {
 
       messages.innerHTML = "";
 
-      snapshot.forEach((child) => {
+
+      snapshot.forEach(child => {
 
         const data =
           child.val();
 
+
         const div =
           document.createElement("div");
 
+
         div.className =
           "message";
+
 
         if (data.sender === userId) {
 
@@ -437,17 +679,21 @@ function listenForMessages() {
 
         }
 
+
         div.textContent =
           data.text;
+
 
         messages.appendChild(div);
 
       });
 
+
       messages.scrollTop =
         messages.scrollHeight;
 
-    });
+    }
+  );
 
 }
 
@@ -459,22 +705,21 @@ async function sendMessage() {
   const text =
     messageInput.value.trim();
 
+
   if (!text || !roomId) {
     return;
   }
 
+
   await push(
     ref(db, "messages/" + roomId),
     {
-
       sender: userId,
-
       text: text,
-
       time: Date.now()
-
     }
   );
+
 
   messageInput.value = "";
 
@@ -497,18 +742,33 @@ async function nextPerson() {
 
   }
 
+
   roomId = null;
 
   messages.innerHTML = "";
 
-  chatArea.style.display =
-    "none";
-
-  startButton.style.display =
-    "block";
+  partnerProfile.innerHTML =
+    "👤 Looking for someone new...";
 
   status.textContent =
-    "Ready to meet someone new!";
+    "🔎 Looking for someone...";
+
+
+  await startMatching();
+
+}
+
+
+/* BASIC HTML ESCAPE */
+
+function escapeHtml(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
 
 }
 
