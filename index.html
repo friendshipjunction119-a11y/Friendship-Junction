@@ -31,51 +31,44 @@
     }
 
     .logo {
-      font-size: 42px;
-      margin-bottom: 15px;
+      font-size: 45px;
+      margin-bottom: 10px;
     }
 
     h1 {
-      font-size: 42px;
-      margin-bottom: 15px;
+      font-size: 38px;
+      margin-bottom: 12px;
     }
 
     .tagline {
-      font-size: 19px;
+      font-size: 18px;
+      margin-bottom: 30px;
       opacity: 0.9;
-      margin-bottom: 35px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(15px);
-      padding: 35px 25px;
+      padding: 30px 22px;
       border-radius: 25px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     }
 
-    .start-btn {
+    button {
       width: 100%;
-      border: none;
       padding: 17px;
+      border: none;
       border-radius: 50px;
       background: white;
       color: #7c3aed;
       font-size: 18px;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.2s;
     }
 
-    .start-btn:active {
-      transform: scale(0.96);
-    }
-
-    .info {
-      margin-top: 25px;
-      font-size: 14px;
-      opacity: 0.8;
-      line-height: 1.5;
+    #status {
+      margin-top: 20px;
+      font-size: 15px;
+      min-height: 22px;
     }
 
     .footer {
@@ -100,27 +93,79 @@
 
     <div class="card">
 
-      <button class="start-btn" onclick="startChat()">
+      <button id="startButton">
         🚀 Start Chat
       </button>
 
-      <p class="info">
-        Connect with new people and have friendly conversations.
-        Please be respectful and stay safe.
-      </p>
+      <p id="status"></p>
 
     </div>
 
     <p class="footer">
-      Friendship Junction • Meet • Chat • Connect
+      Meet • Chat • Connect
     </p>
 
   </div>
 
-  <script>
-    function startChat() {
-      alert("Chat system coming next! 🚀");
-    }
+  <script type="module">
+
+    import { initializeApp } from
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getDatabase,
+      ref,
+      set
+    } from
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCjK69caLVFreSK40n3S-5OkWBQXMa_lyI",
+      authDomain: "friendship-junction-549ff.firebaseapp.com",
+      databaseURL: "https://friendship-junction-549ff-default-rtdb.firebaseio.com",
+      projectId: "friendship-junction-549ff",
+      storageBucket: "friendship-junction-549ff.firebasestorage.app",
+      messagingSenderId: "641554247603",
+      appId: "1:641554247603:web:69115118fe8bceb96265c6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const button = document.getElementById("startButton");
+    const status = document.getElementById("status");
+
+    button.addEventListener("click", async () => {
+
+      status.textContent = "Connecting... ⏳";
+      button.disabled = true;
+
+      const userId =
+        "user_" + Math.random().toString(36).substring(2, 10);
+
+      try {
+
+        await set(ref(database, "test/" + userId), {
+          online: true,
+          createdAt: Date.now()
+        });
+
+        status.textContent = "Firebase connected! 🎉";
+
+        button.textContent = "Connected ✓";
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+          "Connection failed. Check Firebase Rules.";
+
+        button.disabled = false;
+      }
+
+    });
+
   </script>
 
 </body>
