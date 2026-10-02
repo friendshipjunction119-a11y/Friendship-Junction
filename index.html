@@ -17,156 +17,502 @@
       min-height: 100vh;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #6c5ce7, #a855f7, #ec4899);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       color: white;
       padding: 20px;
     }
 
     .container {
-      width: 100%;
-      max-width: 500px;
+      max-width: 600px;
+      margin: auto;
       text-align: center;
     }
 
     .logo {
-      font-size: 45px;
-      margin-bottom: 10px;
+      font-size: 42px;
+      margin-top: 20px;
     }
 
     h1 {
-      font-size: 38px;
-      margin-bottom: 12px;
+      font-size: 34px;
+      margin: 10px 0;
     }
 
-    .tagline {
-      font-size: 18px;
-      margin-bottom: 30px;
-      opacity: 0.9;
+    .subtitle {
+      opacity: 0.85;
+      margin-bottom: 25px;
     }
 
     .card {
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(15px);
-      padding: 30px 22px;
+      border-radius: 24px;
+      padding: 25px;
+    }
+
+    #status {
+      margin-bottom: 18px;
+      font-weight: bold;
+    }
+
+    #messages {
+      height: 350px;
+      overflow-y: auto;
+      background: rgba(0,0,0,0.15);
+      border-radius: 15px;
+      padding: 15px;
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      padding: 10px 13px;
+      margin: 7px 0;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.2);
+      word-wrap: break-word;
+    }
+
+    .mine {
+      background: white;
+      color: #6c5ce7;
+      text-align: right;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input {
+      flex: 1;
+      padding: 14px;
+      border: none;
       border-radius: 25px;
+      outline: none;
+      font-size: 16px;
     }
 
     button {
-      width: 100%;
-      padding: 17px;
       border: none;
-      border-radius: 50px;
+      border-radius: 25px;
+      padding: 14px 20px;
       background: white;
       color: #7c3aed;
-      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    #status {
-      margin-top: 20px;
-      font-size: 15px;
-      min-height: 22px;
+    #chatArea {
+      display: none;
     }
 
-    .footer {
-      margin-top: 25px;
-      font-size: 13px;
-      opacity: 0.7;
+    #nextButton {
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    #startButton {
+      width: 100%;
+      font-size: 18px;
+      padding: 17px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="logo">🤝</div>
+  <div class="logo">🤝</div>
 
-    <h1>Friendship Junction</h1>
+  <h1>Friendship Junction</h1>
 
-    <p class="tagline">
-      Meet someone new. Make a new friend.
-    </p>
+  <p class="subtitle">
+    Meet someone new. Make a new friend.
+  </p>
 
-    <div class="card">
+  <div class="card">
 
-      <button id="startButton">
-        🚀 Start Chat
+    <div id="status">
+      Ready to meet someone?
+    </div>
+
+    <button id="startButton">
+      🚀 Start Chat
+    </button>
+
+    <div id="chatArea">
+
+      <div id="messages"></div>
+
+      <div class="input-row">
+        <input
+          id="messageInput"
+          type="text"
+          placeholder="Type a message..."
+        >
+
+        <button id="sendButton">
+          Send
+        </button>
+      </div>
+
+      <button id="nextButton">
+        ⏭️ Next Person
       </button>
-
-      <p id="status"></p>
 
     </div>
 
-    <p class="footer">
-      Meet • Chat • Connect
-    </p>
-
   </div>
 
-  <script type="module">
+</div>
 
-    import { initializeApp } from
-      "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+<script type="module">
 
-    import {
-      getDatabase,
-      ref,
-      set
-    } from
-      "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCjK69caLVFreSK40n3S-5OkWBQXMa_lyI",
-      authDomain: "friendship-junction-549ff.firebaseapp.com",
-      databaseURL: "https://friendship-junction-549ff-default-rtdb.firebaseio.com",
-      projectId: "friendship-junction-549ff",
-      storageBucket: "friendship-junction-549ff.firebasestorage.app",
-      messagingSenderId: "641554247603",
-      appId: "1:641554247603:web:69115118fe8bceb96265c6"
-    };
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  push,
+  onValue,
+  remove,
+  onDisconnect
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
 
-    const button = document.getElementById("startButton");
-    const status = document.getElementById("status");
+const firebaseConfig = {
 
-    button.addEventListener("click", async () => {
+  apiKey: "AIzaSyCjK69caLVFreSK40n3S-5OkWBQXMa_lyI",
 
-      status.textContent = "Connecting... ⏳";
-      button.disabled = true;
+  authDomain:
+    "friendship-junction-549ff.firebaseapp.com",
 
-      const userId =
-        "user_" + Math.random().toString(36).substring(2, 10);
+  databaseURL:
+    "https://friendship-junction-549ff-default-rtdb.firebaseio.com",
 
-      try {
+  projectId:
+    "friendship-junction-549ff",
 
-        await set(ref(database, "test/" + userId), {
-          online: true,
-          createdAt: Date.now()
-        });
+  storageBucket:
+    "friendship-junction-549ff.firebasestorage.app",
 
-        status.textContent = "Firebase connected! 🎉";
+  messagingSenderId:
+    "641554247603",
 
-        button.textContent = "Connected ✓";
+  appId:
+    "1:641554247603:web:69115118fe8bceb96265c6"
+};
 
-      } catch (error) {
 
-        console.error(error);
+const app = initializeApp(firebaseConfig);
 
-        status.textContent =
-          "Connection failed. Check Firebase Rules.";
+const db = getDatabase(app);
 
-        button.disabled = false;
+
+const startButton =
+  document.getElementById("startButton");
+
+const nextButton =
+  document.getElementById("nextButton");
+
+const sendButton =
+  document.getElementById("sendButton");
+
+const messageInput =
+  document.getElementById("messageInput");
+
+const status =
+  document.getElementById("status");
+
+const chatArea =
+  document.getElementById("chatArea");
+
+const messages =
+  document.getElementById("messages");
+
+
+let userId =
+  "user_" +
+  Math.random().toString(36).substring(2, 10);
+
+
+let roomId = null;
+
+let messageListener = null;
+
+
+/* START */
+
+startButton.addEventListener("click", startMatching);
+
+nextButton.addEventListener("click", nextPerson);
+
+sendButton.addEventListener("click", sendMessage);
+
+messageInput.addEventListener("keydown", (event) => {
+
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+
+});
+
+
+async function startMatching() {
+
+  startButton.style.display = "none";
+
+  status.textContent =
+    "🔎 Looking for someone...";
+
+  const waitingRef =
+    ref(db, "waiting/" + userId);
+
+  await set(waitingRef, {
+
+    joinedAt: Date.now()
+
+  });
+
+  onDisconnect(waitingRef).remove();
+
+  const waitingSnapshot =
+    await get(ref(db, "waiting"));
+
+  let foundUser = null;
+
+  waitingSnapshot.forEach((child) => {
+
+    if (
+      child.key !== userId &&
+      !foundUser
+    ) {
+
+      foundUser = child.key;
+
+    }
+
+  });
+
+
+  if (foundUser) {
+
+    roomId =
+      [userId, foundUser]
+      .sort()
+      .join("_");
+
+    await set(
+      ref(db, "rooms/" + roomId),
+      {
+        user1: userId,
+        user2: foundUser,
+        createdAt: Date.now()
+      }
+    );
+
+    await remove(
+      ref(db, "waiting/" + foundUser)
+    );
+
+    await remove(waitingRef);
+
+    enterChat();
+
+  } else {
+
+    listenForMatch();
+
+  }
+
+}
+
+
+/* WAIT FOR MATCH */
+
+function listenForMatch() {
+
+  const waitingRef =
+    ref(db, "waiting");
+
+  onValue(waitingRef, (snapshot) => {
+
+    let otherUser = null;
+
+    snapshot.forEach((child) => {
+
+      if (
+        child.key !== userId &&
+        !otherUser
+      ) {
+
+        otherUser = child.key;
+
       }
 
     });
 
-  </script>
+    if (otherUser) {
+
+      roomId =
+        [userId, otherUser]
+        .sort()
+        .join("_");
+
+      remove(
+        ref(db, "waiting/" + userId)
+      );
+
+      remove(
+        ref(db, "waiting/" + otherUser)
+      );
+
+      set(
+        ref(db, "rooms/" + roomId),
+        {
+          user1: userId,
+          user2: otherUser,
+          createdAt: Date.now()
+        }
+      );
+
+      enterChat();
+
+    }
+
+  });
+
+}
+
+
+/* ENTER CHAT */
+
+function enterChat() {
+
+  status.textContent =
+    "🎉 You're connected!";
+
+  chatArea.style.display =
+    "block";
+
+  startButton.style.display =
+    "none";
+
+  listenForMessages();
+
+}
+
+
+/* MESSAGES */
+
+function listenForMessages() {
+
+  const messagesRef =
+    ref(db, "messages/" + roomId);
+
+  messageListener =
+    onValue(messagesRef, (snapshot) => {
+
+      messages.innerHTML = "";
+
+      snapshot.forEach((child) => {
+
+        const data =
+          child.val();
+
+        const div =
+          document.createElement("div");
+
+        div.className =
+          "message";
+
+        if (data.sender === userId) {
+
+          div.classList.add("mine");
+
+        }
+
+        div.textContent =
+          data.text;
+
+        messages.appendChild(div);
+
+      });
+
+      messages.scrollTop =
+        messages.scrollHeight;
+
+    });
+
+}
+
+
+/* SEND MESSAGE */
+
+async function sendMessage() {
+
+  const text =
+    messageInput.value.trim();
+
+  if (!text || !roomId) {
+    return;
+  }
+
+  await push(
+    ref(db, "messages/" + roomId),
+    {
+
+      sender: userId,
+
+      text: text,
+
+      time: Date.now()
+
+    }
+  );
+
+  messageInput.value = "";
+
+}
+
+
+/* NEXT */
+
+async function nextPerson() {
+
+  if (roomId) {
+
+    await remove(
+      ref(db, "messages/" + roomId)
+    );
+
+    await remove(
+      ref(db, "rooms/" + roomId)
+    );
+
+  }
+
+  roomId = null;
+
+  messages.innerHTML = "";
+
+  chatArea.style.display =
+    "none";
+
+  startButton.style.display =
+    "block";
+
+  status.textContent =
+    "Ready to meet someone new!";
+
+}
+
+</script>
 
 </body>
 </html>
