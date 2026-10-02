@@ -1,294 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Friendship Junction</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friendship Junction</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #6c5ce7, #a855f7, #ec4899);
-      color: white;
-      padding: 20px;
-    }
+body{
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#6c5ce7,#a855f7,#ec4899);
+  color:white;
+  padding:20px;
+}
 
-    .container {
-      max-width: 600px;
-      margin: auto;
-      text-align: center;
-    }
+.container{
+  max-width:600px;
+  margin:auto;
+}
 
-    .logo {
-      font-size: 42px;
-      margin-top: 15px;
-    }
+.logo{
+  text-align:center;
+  font-size:42px;
+  margin-top:15px;
+}
 
-    h1 {
-      font-size: 34px;
-      margin: 8px 0;
-    }
+h1{
+  text-align:center;
+  font-size:34px;
+  margin:8px 0;
+}
 
-    .subtitle {
-      opacity: .85;
-      margin-bottom: 20px;
-    }
+.subtitle{
+  text-align:center;
+  opacity:.85;
+  margin-bottom:20px;
+}
 
-    .card {
-      background: rgba(255,255,255,.15);
-      backdrop-filter: blur(15px);
-      border-radius: 24px;
-      padding: 25px;
-      text-align: left;
-    }
+.card{
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(15px);
+  border-radius:24px;
+  padding:25px;
+}
 
-    label {
-      display: block;
-      margin: 12px 0 6px;
-      font-weight: bold;
-    }
+label{
+  display:block;
+  margin:12px 0 6px;
+  font-weight:bold;
+}
 
-    input,
-    select {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      outline: none;
-    }
+input,select{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
 
-    .checkbox {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      margin: 18px 0;
-      font-size: 14px;
-      line-height: 1.4;
-    }
+.checkbox{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:18px 0;
+  font-size:14px;
+}
 
-    .checkbox input {
-      width: auto;
-      margin-top: 3px;
-    }
+.checkbox input{
+  width:auto;
+  margin-top:3px;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 8px;
-      border: none;
-      border-radius: 30px;
-      background: white;
-      color: #7c3aed;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+button{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border:0;
+  border-radius:30px;
+  background:white;
+  color:#7c3aed;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    button:disabled {
-      opacity: .6;
-    }
+button:disabled{
+  opacity:.6;
+}
 
-    .danger {
-      background: #ffdddd;
-      color: #c0392b;
-    }
+.danger{
+  background:#ffdddd;
+  color:#c0392b;
+}
 
-    .secondary {
-      background: rgba(255,255,255,.25);
-      color: white;
-    }
+.secondary{
+  background:rgba(255,255,255,.25);
+  color:white;
+}
 
-    #chatArea {
-      display: none;
-    }
+#chatArea{
+  display:none;
+}
 
-    #status {
-      text-align: center;
-      margin-bottom: 15px;
-      font-weight: bold;
-    }
+#status{
+  text-align:center;
+  margin-bottom:15px;
+  font-weight:bold;
+}
 
-    .profile {
-      background: rgba(255,255,255,.18);
-      padding: 12px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
+.profile{
+  background:rgba(255,255,255,.18);
+  padding:12px;
+  border-radius:15px;
+  margin-bottom:15px;
+  text-align:center;
+}
 
-    #messages {
-      height: 330px;
-      overflow-y: auto;
-      background: rgba(0,0,0,.15);
-      border-radius: 15px;
-      padding: 12px;
-      margin-bottom: 12px;
-    }
+#messages{
+  height:330px;
+  overflow-y:auto;
+  background:rgba(0,0,0,.15);
+  border-radius:15px;
+  padding:12px;
+  margin-bottom:12px;
+}
 
-    .message {
-      background: rgba(255,255,255,.18);
-      padding: 10px;
-      border-radius: 14px;
-      margin: 6px 0;
-      word-wrap: break-word;
-    }
+.message{
+  background:rgba(255,255,255,.18);
+  padding:10px;
+  border-radius:14px;
+  margin:6px 0;
+  word-wrap:break-word;
+}
 
-    .mine {
-      background: white;
-      color: #6c5ce7;
-      text-align: right;
-    }
+.mine{
+  background:white;
+  color:#6c5ce7;
+  text-align:right;
+}
 
-    .input-row {
-      display: flex;
-      gap: 8px;
-    }
+.input-row{
+  display:flex;
+  gap:8px;
+}
 
-    .input-row input {
-      flex: 1;
-    }
+.input-row input{
+  flex:1;
+}
 
-    .input-row button {
-      width: auto;
-      padding: 12px 18px;
-    }
+.input-row button{
+  width:auto;
+  padding:12px 18px;
+}
 
-    .error {
-      color: #ffe1e1;
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-
-    .notice {
-      font-size: 12px;
-      opacity: .75;
-      margin-top: 15px;
-      text-align: center;
-      line-height: 1.5;
-    }
-  </style>
+.error{
+  color:#ffe1e1;
+  text-align:center;
+  margin-top:10px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <div class="logo">🤝</div>
+<div class="logo">🤝</div>
 
-  <h1>Friendship Junction</h1>
+<h1>Friendship Junction</h1>
 
-  <p class="subtitle">
-    Meet someone new. Make a new friend.
-  </p>
-
-
-  <!-- PROFILE -->
-
-  <div class="card" id="profileArea">
-
-    <label>Your name</label>
-
-    <input
-      id="nameInput"
-      type="text"
-      maxlength="30"
-      placeholder="Enter your name"
-      autocomplete="off"
-    >
-
-    <label>Gender</label>
-
-    <select id="genderInput">
-      <option value="">Select gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Other">Other</option>
-    </select>
-
-    <label>Age</label>
-
-    <input
-      id="ageInput"
-      type="number"
-      min="18"
-      max="100"
-      placeholder="18 or older"
-    >
-
-    <label class="checkbox">
-      <input id="adultCheck" type="checkbox">
-      <span>
-        I confirm that I am 18 years old or older.
-      </span>
-    </label>
-
-    <button id="startButton">
-      🚀 Start Chat
-    </button>
-
-    <p id="error" class="error"></p>
-
-    <p class="notice">
-      Never share your phone number, address, password,
-      financial information, or other private information
-      with strangers.
-    </p>
-
-  </div>
+<p class="subtitle">
+Meet someone new. Make a new friend.
+</p>
 
 
-  <!-- CHAT -->
+<!-- PROFILE -->
 
-  <div class="card" id="chatArea">
+<div class="card" id="profileArea">
 
-    <div id="status">
-      Connecting...
-    </div>
+<label>Your name</label>
 
-    <div class="profile" id="partnerProfile">
-      👤 Looking for someone...
-    </div>
+<input
+id="nameInput"
+type="text"
+maxlength="30"
+placeholder="Enter your name"
+autocomplete="off"
+>
 
-    <div id="messages"></div>
 
-    <div class="input-row">
+<label>Gender</label>
 
-      <input
-        id="messageInput"
-        type="text"
-        maxlength="500"
-        placeholder="Type a message..."
-        autocomplete="off"
-      >
+<select id="genderInput">
 
-      <button id="sendButton">
-        Send
-      </button>
+<option value="">Select gender</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Other">Other</option>
 
-    </div>
+</select>
 
-    <button id="nextButton">
-      ⏭️ Next Person
-    </button>
 
-    <button id="reportButton" class="secondary">
-      🚩 Report User
-    </button>
+<label>Age</label>
 
-    <button id="blockButton" class="danger">
-      🚫 Block User
-    </button>
+<input
+id="ageInput"
+type="number"
+min="18"
+max="100"
+placeholder="18 or older"
+>
 
-  </div>
+
+<label class="checkbox">
+
+<input
+id="adultCheck"
+type="checkbox"
+>
+
+<span>
+I confirm that I am 18 years old or older.
+</span>
+
+</label>
+
+
+<button id="startButton">
+🚀 Start Chat
+</button>
+
+<p id="error" class="error"></p>
+
+</div>
+
+
+<!-- CHAT -->
+
+<div class="card" id="chatArea">
+
+<div id="status">
+🔎 Looking for someone...
+</div>
+
+<div class="profile" id="partnerProfile">
+👤 Waiting for a match...
+</div>
+
+<div id="messages"></div>
+
+
+<div class="input-row">
+
+<input
+id="messageInput"
+type="text"
+maxlength="500"
+placeholder="Type a message..."
+autocomplete="off"
+>
+
+<button id="sendButton">
+Send
+</button>
+
+</div>
+
+
+<button id="nextButton">
+⏭️ Next Person
+</button>
+
+<button id="reportButton" class="secondary">
+🚩 Report User
+</button>
+
+<button id="blockButton" class="danger">
+🚫 Block User
+</button>
+
+</div>
 
 </div>
 
@@ -299,718 +293,626 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  push,
-  onValue,
-  remove,
-  onDisconnect
+getDatabase,
+ref,
+set,
+get,
+push,
+onValue,
+remove,
+onDisconnect
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
 /* FIREBASE */
 
-const firebaseConfig = {
+const firebaseConfig={
 
-  apiKey:
-    "AIzaSyCjK69caLVFreSK40n3S-5OkWBQXMa_lyI",
+apiKey:
+"AIzaSyCjK69caLVFreSK40n3S-5OkWBQXMa_lyI",
 
-  authDomain:
-    "friendship-junction-549ff.firebaseapp.com",
+authDomain:
+"friendship-junction-549ff.firebaseapp.com",
 
-  databaseURL:
-    "https://friendship-junction-549ff-default-rtdb.firebaseio.com",
+databaseURL:
+"https://friendship-junction-549ff-default-rtdb.firebaseio.com",
 
-  projectId:
-    "friendship-junction-549ff",
+projectId:
+"friendship-junction-549ff",
 
-  storageBucket:
-    "friendship-junction-549ff.firebasestorage.app",
+storageBucket:
+"friendship-junction-549ff.firebasestorage.app",
 
-  messagingSenderId:
-    "641554247603",
+messagingSenderId:
+"641554247603",
 
-  appId:
-    "1:641554247603:web:69115118fe8bceb96265c6"
+appId:
+"1:641554247603:web:69115118fe8bceb96265c6"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const app=initializeApp(firebaseConfig);
+
+const db=getDatabase(app);
 
 
 /* USER */
 
-const userId =
-  "user_" +
-  Math.random().toString(36).substring(2, 10);
+const userId=
+"user_"+Math.random().toString(36).substring(2,10);
 
 
-let roomId = null;
-let myProfile = null;
-let currentPartnerId = null;
-let waitingListenerStarted = false;
+let roomId=null;
+
+let partnerId=null;
+
+let myProfile=null;
+
+let matching=false;
 
 
 /* ELEMENTS */
 
-const nameInput =
-  document.getElementById("nameInput");
+const profileArea=
+document.getElementById("profileArea");
 
-const genderInput =
-  document.getElementById("genderInput");
+const chatArea=
+document.getElementById("chatArea");
 
-const ageInput =
-  document.getElementById("ageInput");
+const nameInput=
+document.getElementById("nameInput");
 
-const adultCheck =
-  document.getElementById("adultCheck");
+const genderInput=
+document.getElementById("genderInput");
 
-const startButton =
-  document.getElementById("startButton");
+const ageInput=
+document.getElementById("ageInput");
 
-const profileArea =
-  document.getElementById("profileArea");
+const adultCheck=
+document.getElementById("adultCheck");
 
-const chatArea =
-  document.getElementById("chatArea");
+const startButton=
+document.getElementById("startButton");
 
-const status =
-  document.getElementById("status");
+const status=
+document.getElementById("status");
 
-const partnerProfile =
-  document.getElementById("partnerProfile");
+const partnerProfile=
+document.getElementById("partnerProfile");
 
-const messages =
-  document.getElementById("messages");
+const messages=
+document.getElementById("messages");
 
-const messageInput =
-  document.getElementById("messageInput");
+const messageInput=
+document.getElementById("messageInput");
 
-const sendButton =
-  document.getElementById("sendButton");
+const sendButton=
+document.getElementById("sendButton");
 
-const nextButton =
-  document.getElementById("nextButton");
+const nextButton=
+document.getElementById("nextButton");
 
-const reportButton =
-  document.getElementById("reportButton");
+const reportButton=
+document.getElementById("reportButton");
 
-const blockButton =
-  document.getElementById("blockButton");
+const blockButton=
+document.getElementById("blockButton");
 
-const error =
-  document.getElementById("error");
-
-
-/* BUTTONS */
-
-startButton.addEventListener(
-  "click",
-  startMatching
-);
-
-sendButton.addEventListener(
-  "click",
-  sendMessage
-);
-
-nextButton.addEventListener(
-  "click",
-  nextPerson
-);
-
-reportButton.addEventListener(
-  "click",
-  reportUser
-);
-
-blockButton.addEventListener(
-  "click",
-  blockUser
-);
-
-
-messageInput.addEventListener(
-  "keydown",
-  event => {
-
-    if (event.key === "Enter") {
-      sendMessage();
-    }
-
-  }
-);
-
-
-/* PROFILE VALIDATION */
-
-function getProfile() {
-
-  const name =
-    nameInput.value.trim();
-
-  const gender =
-    genderInput.value;
-
-  const age =
-    Number(ageInput.value);
-
-
-  if (!name) {
-
-    error.textContent =
-      "Please enter your name.";
-
-    return null;
-  }
-
-
-  if (!gender) {
-
-    error.textContent =
-      "Please select your gender.";
-
-    return null;
-  }
-
-
-  if (!Number.isInteger(age) || age < 18 || age > 100) {
-
-    error.textContent =
-      "You must be 18 or older.";
-
-    return null;
-  }
-
-
-  if (!adultCheck.checked) {
-
-    error.textContent =
-      "You must confirm that you are 18+.";
-
-    return null;
-  }
-
-
-  error.textContent = "";
-
-
-  return {
-    name: name,
-    gender: gender,
-    age: age
-  };
-
-}
+const error=
+document.getElementById("error");
 
 
 /* START */
 
-async function startMatching() {
+startButton.onclick=startChat;
 
-  myProfile = getProfile();
+sendButton.onclick=sendMessage;
 
-  if (!myProfile) {
-    return;
-  }
+nextButton.onclick=nextPerson;
 
+reportButton.onclick=reportUser;
 
-  startButton.disabled = true;
-
-  profileArea.style.display = "none";
-  chatArea.style.display = "block";
-
-  status.textContent =
-    "🔎 Looking for someone...";
+blockButton.onclick=blockUser;
 
 
-  await set(
-    ref(db, "profiles/" + userId),
-    myProfile
-  );
+messageInput.addEventListener(
+"keydown",
+e=>{
+if(e.key==="Enter"){
+sendMessage();
+}
+}
+);
 
 
-  await set(
-    ref(db, "waiting/" + userId),
-    {
-      joinedAt: Date.now()
-    }
-  );
+/* PROFILE */
+
+function getProfile(){
+
+const name=
+nameInput.value.trim();
+
+const gender=
+genderInput.value;
+
+const age=
+Number(ageInput.value);
 
 
-  onDisconnect(
-    ref(db, "waiting/" + userId)
-  ).remove();
+if(!name){
+
+error.textContent=
+"Please enter your name.";
+
+return null;
+}
 
 
-  await findMatch();
+if(!gender){
+
+error.textContent=
+"Please select gender.";
+
+return null;
+}
+
+
+if(!Number.isInteger(age)||age<18||age>100){
+
+error.textContent=
+"You must be 18 or older.";
+
+return null;
+}
+
+
+if(!adultCheck.checked){
+
+error.textContent=
+"Please confirm that you are 18+.";
+
+return null;
+}
+
+
+error.textContent="";
+
+
+return{
+name:name,
+gender:gender,
+age:age
+};
 
 }
 
 
-/* FIND MATCH */
+/* START CHAT */
 
-async function findMatch() {
+async function startChat(){
 
-  const snapshot =
-    await get(ref(db, "waiting"));
+myProfile=getProfile();
 
-
-  let foundUser = null;
+if(!myProfile)return;
 
 
-  snapshot.forEach(child => {
+startButton.disabled=true;
 
-    if (
-      child.key !== userId &&
-      !foundUser
-    ) {
+profileArea.style.display="none";
 
-      foundUser = child.key;
+chatArea.style.display="block";
 
-    }
-
-  });
+status.textContent=
+"🔎 Looking for someone...";
 
 
-  if (foundUser) {
+await set(
+ref(db,"profiles/"+userId),
+myProfile
+);
 
-    await createRoom(foundUser);
 
-  } else {
+await set(
+ref(db,"waiting/"+userId),
+{
+joinedAt:Date.now()
+}
+);
 
-    listenForWaitingUsers();
 
-  }
+onDisconnect(
+ref(db,"waiting/"+userId)
+).remove();
+
+
+matching=true;
+
+watchWaiting();
 
 }
 
 
-/* LISTEN FOR NEW USERS */
+/* WATCH WAITING LIST */
 
-function listenForWaitingUsers() {
+function watchWaiting(){
 
-  if (waitingListenerStarted) {
-    return;
-  }
+onValue(
+ref(db,"waiting"),
+async snapshot=>{
 
-  waitingListenerStarted = true;
-
-
-  onValue(
-    ref(db, "waiting"),
-    snapshot => {
-
-      let otherUser = null;
+if(!matching||roomId)return;
 
 
-      snapshot.forEach(child => {
-
-        if (
-          child.key !== userId &&
-          !otherUser
-        ) {
-
-          otherUser = child.key;
-
-        }
-
-      });
+let users=[];
 
 
-      if (otherUser && !roomId) {
+snapshot.forEach(child=>{
 
-        createRoom(otherUser);
+if(child.key!==userId){
 
-      }
+users.push(child.key);
 
-    }
-  );
+}
+
+});
+
+
+if(users.length===0){
+
+status.textContent=
+"🔎 Looking for someone...";
+
+return;
 
 }
 
 
-/* CREATE ROOM */
+/* TRY USERS ONE BY ONE */
 
-async function createRoom(otherUser) {
+for(const otherUser of users){
 
-  const alreadyBlocked =
-    await get(
-      ref(
-        db,
-        "blocks/" +
-        userId +
-        "/" +
-        otherUser
-      )
-    );
+const blocked=
+await get(
+ref(
+db,
+"blocks/"+userId+"/"+otherUser
+)
+);
 
 
-  if (alreadyBlocked.exists()) {
+if(blocked.exists()){
 
-    await remove(
-      ref(
-        db,
-        "waiting/" +
-        otherUser
-      )
-    );
+continue;
 
-    return;
-
-  }
+}
 
 
-  roomId =
-    [userId, otherUser]
-    .sort()
-    .join("_");
+await createMatch(otherUser);
+
+break;
+
+}
+
+});
+
+}
 
 
-  currentPartnerId =
-    otherUser;
+/* CREATE MATCH */
+
+async function createMatch(otherUser){
+
+if(roomId)return;
+
+matching=false;
+
+partnerId=otherUser;
+
+roomId=
+[userId,otherUser]
+.sort()
+.join("_");
 
 
-  await set(
-    ref(db, "rooms/" + roomId),
-    {
-      user1: userId,
-      user2: otherUser,
-      createdAt: Date.now()
-    }
-  );
+await set(
+ref(db,"rooms/"+roomId),
+{
+user1:userId,
+user2:otherUser,
+createdAt:Date.now()
+}
+);
 
 
-  await remove(
-    ref(db, "waiting/" + userId)
-  );
+/* REMOVE WAITING */
+
+await remove(
+ref(db,"waiting/"+userId)
+);
+
+await remove(
+ref(db,"waiting/"+otherUser)
+);
 
 
-  await remove(
-    ref(db, "waiting/" + otherUser)
-  );
+/* SHOW PARTNER */
 
-
-  await showPartner(otherUser);
+await showPartner(otherUser);
 
 }
 
 
 /* SHOW PARTNER */
 
-async function showPartner(otherUser) {
+async function showPartner(otherUser){
 
-  const snapshot =
-    await get(
-      ref(
-        db,
-        "profiles/" +
-        otherUser
-      )
-    );
+const snapshot=
+await get(
+ref(db,"profiles/"+otherUser)
+);
 
 
-  if (snapshot.exists()) {
+if(snapshot.exists()){
 
-    const profile =
-      snapshot.val();
-
-
-    partnerProfile.textContent =
-      "👋 " +
-      profile.name +
-      " • " +
-      profile.gender +
-      " • " +
-      profile.age +
-      " years old";
-
-  }
+const p=snapshot.val();
 
 
-  status.textContent =
-    "🎉 You're connected!";
-
-
-  listenForMessages();
+partnerProfile.textContent=
+"👋 "+p.name+
+" • "+p.gender+
+" • "+p.age+" years old";
 
 }
 
 
-/* CHAT */
-
-function listenForMessages() {
-
-  onValue(
-    ref(
-      db,
-      "messages/" +
-      roomId
-    ),
-    snapshot => {
-
-      messages.innerHTML = "";
+status.textContent=
+"🎉 You're connected!";
 
 
-      snapshot.forEach(child => {
+listenMessages();
 
-        const data =
-          child.val();
-
-
-        const div =
-          document.createElement("div");
+}
 
 
-        div.className =
-          "message";
+/* MESSAGES */
+
+function listenMessages(){
+
+onValue(
+ref(db,"messages/"+roomId),
+snapshot=>{
+
+messages.innerHTML="";
 
 
-        if (data.sender === userId) {
+snapshot.forEach(child=>{
 
-          div.classList.add("mine");
-
-        }
+const data=child.val();
 
 
-        div.textContent =
-          data.text;
+const div=
+document.createElement("div");
 
 
-        messages.appendChild(div);
-
-      });
+div.className="message";
 
 
-      messages.scrollTop =
-        messages.scrollHeight;
+if(data.sender===userId){
 
-    }
-  );
+div.classList.add("mine");
+
+}
+
+
+div.textContent=data.text;
+
+
+messages.appendChild(div);
+
+});
+
+
+messages.scrollTop=
+messages.scrollHeight;
+
+});
 
 }
 
 
 /* SEND */
 
-async function sendMessage() {
+async function sendMessage(){
 
-  const text =
-    messageInput.value.trim();
-
-
-  if (!text || !roomId) {
-    return;
-  }
+const text=
+messageInput.value.trim();
 
 
-  await push(
-    ref(
-      db,
-      "messages/" +
-      roomId
-    ),
-    {
-      sender: userId,
-      text: text,
-      time: Date.now()
-    }
-  );
+if(!text||!roomId)return;
 
 
-  messageInput.value = "";
+await push(
+ref(db,"messages/"+roomId),
+{
+sender:userId,
+text:text,
+time:Date.now()
+}
+);
+
+
+messageInput.value="";
 
 }
 
 
 /* NEXT */
 
-async function nextPerson() {
+async function nextPerson(){
 
-  if (roomId) {
-
-    await remove(
-      ref(
-        db,
-        "messages/" +
-        roomId
-      )
-    );
+matching=false;
 
 
-    await remove(
-      ref(
-        db,
-        "rooms/" +
-        roomId
-      )
-    );
+if(roomId){
 
-  }
+await remove(
+ref(db,"messages/"+roomId)
+);
 
+await remove(
+ref(db,"rooms/"+roomId)
+);
 
-  roomId = null;
-  currentPartnerId = null;
+}
 
 
-  messages.innerHTML = "";
+roomId=null;
 
-  partnerProfile.textContent =
-    "👤 Looking for someone...";
+partnerId=null;
 
+messages.innerHTML="";
 
-  status.textContent =
-    "🔎 Looking for someone...";
+partnerProfile.textContent=
+"👤 Looking for someone...";
 
-
-  await set(
-    ref(
-      db,
-      "waiting/" +
-      userId
-    ),
-    {
-      joinedAt: Date.now()
-    }
-  );
+status.textContent=
+"🔎 Looking for someone...";
 
 
-  await findMatch();
+matching=true;
+
+
+await set(
+ref(db,"waiting/"+userId),
+{
+joinedAt:Date.now()
+}
+);
+
+
+watchWaiting();
 
 }
 
 
 /* REPORT */
 
-async function reportUser() {
+async function reportUser(){
 
-  if (!currentPartnerId || !roomId) {
+if(!partnerId){
 
-    alert("You are not connected to anyone.");
+alert(
+"You are not connected to anyone."
+);
 
-    return;
-  }
+return;
 
-
-  const reason =
-    prompt(
-      "Report reason:\n\n" +
-      "1. Harassment\n" +
-      "2. Sexual content\n" +
-      "3. Spam or bot\n" +
-      "4. Fake profile\n" +
-      "5. Other\n\n" +
-      "Enter 1-5:"
-    );
+}
 
 
-  if (!reason) {
-    return;
-  }
+const reason=
+prompt(
+"Report reason:\n\n"+
+"1. Harassment\n"+
+"2. Sexual content\n"+
+"3. Spam/Bot\n"+
+"4. Fake profile\n"+
+"5. Other\n\n"+
+"Enter 1-5:"
+);
 
 
-  const reasons = {
+const reasons={
 
-    "1": "Harassment",
-    "2": "Sexual content",
-    "3": "Spam or bot",
-    "4": "Fake profile",
-    "5": "Other"
+"1":"Harassment",
+"2":"Sexual content",
+"3":"Spam/Bot",
+"4":"Fake profile",
+"5":"Other"
 
-  };
-
-
-  if (!reasons[reason]) {
-
-    alert("Invalid report reason.");
-
-    return;
-  }
+};
 
 
-  await push(
-    ref(db, "reports"),
-    {
+if(!reasons[reason]){
 
-      reporter:
-        userId,
+alert("Invalid reason.");
 
-      reportedUser:
-        currentPartnerId,
+return;
 
-      roomId:
-        roomId,
-
-      reason:
-        reasons[reason],
-
-      createdAt:
-        Date.now()
-
-    }
-  );
+}
 
 
-  alert(
-    "Report submitted. Thank you."
-  );
+await push(
+ref(db,"reports"),
+{
+
+reporter:userId,
+
+reportedUser:partnerId,
+
+roomId:roomId,
+
+reason:reasons[reason],
+
+createdAt:Date.now()
+
+}
+);
+
+
+alert(
+"Report submitted. Thank you."
+);
 
 }
 
 
 /* BLOCK */
 
-async function blockUser() {
+async function blockUser(){
 
-  if (!currentPartnerId) {
+if(!partnerId){
 
-    alert(
-      "You are not connected to anyone."
-    );
+alert(
+"You are not connected to anyone."
+);
 
-    return;
-  }
+return;
 
-
-  const confirmed =
-    confirm(
-      "Block this user?\n\n" +
-      "You will not be matched with this user again."
-    );
+}
 
 
-  if (!confirmed) {
-    return;
-  }
+const yes=
+confirm(
+"Block this user?\n\n"+
+"You won't be matched with them again."
+);
 
 
-  await set(
-    ref(
-      db,
-      "blocks/" +
-      userId +
-      "/" +
-      currentPartnerId
-    ),
-    {
-      blockedAt:
-        Date.now()
-    }
-  );
+if(!yes)return;
 
 
-  alert("User blocked.");
+await set(
+ref(
+db,
+"blocks/"+userId+"/"+partnerId
+),
+{
+blockedAt:Date.now()
+}
+);
 
 
-  await nextPerson();
+alert("User blocked.");
+
+
+await nextPerson();
 
 }
 
 </script>
 
 </body>
-      </html>
+</html>
